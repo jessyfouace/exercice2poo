@@ -1,56 +1,53 @@
-// function homme (prenom, nom, pays, age, payement) {
-//   this.prenom = "Jessy";
-//   this.nom = "Fouace";
-//   this.pays = "France";
-//   this.age = 19;
-//   this.payement = ["visa", "mastercard"];
-//   this.getName = function() {
-//     alert(this.prenom);
-//     alert(this.nom);
-//     var calculage = 2018 - this.age;
-//     alert("Vous êtes née en: " + calculage);
-//   };
-//   getName();
-// }
-// homme();
-
-
-function homme(prenom, nom, habitations, ages, payements) {
-  var name = prompt("Quel est votre prénom ?");
-  this.prenom = name;
-  var surname = prompt("Quel est votre nom ?");
-  this.nom = surname;
-  var lives = prompt("Dans quel pays résidez vous ?");
-  var upperlives = lives;
-  upperlives.toUpperCase();
-  this.habitations = ["FRANCE", "ANGLETERRE"];
-  var agess = prompt("Quel âge avez vous ?");
-  this.ages = agess;
-  var payement = prompt("Choisisez un moyen de payement (visa, mastercard)");
-  this.payements = ["visa", "mastercard"];
-  this.getName = function() {
-    var calculage = 2018 - this.ages;
-    for (i = 0; i < this.habitations.length; i++) {
-      if (upperlives == this.habitations[i]) {
-        break;
-      } else {
-        continue;
+let character = {
+  objectCharacter: function (name, attack, life, spell, heal, mana) {
+    this.name = name;
+    this.attack = attack;
+    this.life = life;
+    this.spell = spell;
+    this.heal = heal;
+    this.mana = mana;
+    this.fight = function (target) {
+      if (target.life > 0 && sorcier.life > 0 && enemy.life > 0 && player.life > 0) {
+        console.log(name + " utilise sont attaque spéciale " + spell + "pts de vie perdues.");
+        let calculhp = target.life - spell;
+        target.life = calculhp;
+        console.log('Il reste à la victime ' + calculhp + ' hp.');
+        sorcier.mana + 10;
+        if (target.life <= 0) {
+          console.log(target.name + " est mort.");
+        }
+        return target.life + sorcier.mana;
       }
     }
-    for (e = 0; e < this.payements.length; e++) {
-      if (payement == this.payements[e]) {
-        break;
-      } else {
-        continue;
+    this.heal = function () {
+      if (sorcier.life > 0) {
+        if (sorcier.mana > 60) {
+          console.log('Le magicien se heal il gagne ' + heal + ' hp.');
+          let healmag = sorcier.life + heal;
+          sorcier.life = healmag;
+          console.log('Il lui reste ' + sorcier.life + " hp.");
+          sorcier.mana - 60;
+          return sorcier.life + sorcier.mana;
+        } else {
+          console.log("Le magicien ne peut pas se heal.");
+          sorcier.mana + 10;
+          return sorcier.mana;
+        }
       }
     }
-
-    if (this.habitations[i] == undefined || this.payements[e] == undefined || this.prenom == "" || this.nom == "" || calculage > 2000) {
-      alert("Il s'emblerait qu'une ou plusieurs de vos informations ne soit pas correctes.")
-    }else{
-      alert("Vous vous appelez: " + this.prenom + " " + this.nom + ". Vous êtes née en: " + calculage + ". Vous habitez en: " + this.habitations[i] + ". Et votre moyen de payement est: " + this.payements[e]);
-    }
-  };
-  getName();
+  },
 }
-homme();
+
+let enemy = Object.create(character);
+enemy.objectCharacter("Le Guerrier allier", 8, 100, 2 * 8, 0, 0);
+
+let player = Object.create(character);
+player.objectCharacter("Guerrier", 12, 100, 2 * 12, 0, 0);
+
+let sorcier = Object.create(character);
+sorcier.objectCharacter("Le mage", 25, 75, 2 * 25, 20, 100);
+
+console.log(enemy.fight(sorcier));
+console.log(player.fight(sorcier));
+console.log(sorcier.heal());
+console.log(sorcier.fight(player));
