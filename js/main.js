@@ -11,7 +11,7 @@ let character = {
         console.log(name + " utilise sont attaque spéciale " + spell + "pts de vie perdues.");
         let calculhp = target.life - spell;
         target.life = calculhp;
-        console.log('Il reste à la victime ' + calculhp + ' hp.');
+        console.log('Il reste ' + calculhp + ' hp. Au ' + target.name);
         sorcier.mana + 10;
         if (target.life <= 0) {
           console.log(target.name + " est mort.");
@@ -39,13 +39,13 @@ let character = {
 }
 
 let enemy = Object.create(character);
-enemy.objectCharacter("Le Guerrier allier", 8, 100, 2 * 8, 0, 0);
+enemy.objectCharacter("Guerrier allier", 8, 100, 2 * 8, 0, 0);
 
 let player = Object.create(character);
 player.objectCharacter("Guerrier", 12, 100, 2 * 12, 0, 0);
 
 let sorcier = Object.create(character);
-sorcier.objectCharacter("Le mage", 25, 75, 2 * 25, 20, 100);
+sorcier.objectCharacter("Mage", 25, 75, 2 * 25, 20, 100);
 
 console.log(enemy.fight(sorcier));
 console.log(player.fight(sorcier));
